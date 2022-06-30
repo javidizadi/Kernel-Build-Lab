@@ -43,7 +43,7 @@ jobs:
         run: pwd
 
       - name: get .config file
-        run: curl -s -L -o ./.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
+        run: curl -s -L -o ./${{ env.VERSION }}/.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
 
       - name: compile kernel
         run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }}
