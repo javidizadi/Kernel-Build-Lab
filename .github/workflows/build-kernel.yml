@@ -30,8 +30,8 @@ jobs:
       # - name: update and upgrade apt packages
       #   run: sudo apt update && sudo apt upgrade -y
 
-      # - name: install required packages for building kernel
-      #   run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
+      - name: install required packages for building kernel
+        run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: Download ${{ env.VERSION }} tarball
         run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://git.kernel.org/torvalds/t/${{ env.VERSION }}.tar.gz
