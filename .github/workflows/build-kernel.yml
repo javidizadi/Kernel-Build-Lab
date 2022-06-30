@@ -27,9 +27,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # - name: update and upgrade apt packages
-      #   run: sudo apt update && sudo apt upgrade -y
-
       - name: install required packages for building kernel
         run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
@@ -39,17 +36,32 @@ jobs:
       - name: Extract tarball and go to kernel source
         run: tar zxf ${{ env.VERSION }}.tar.gz
 
-      - name: print working directory
-        run: pwd
-
-      - name: get .config file
+      - name: Get .config file
         run: curl -s -L -o ./${{ env.VERSION }}/.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
 
-      - name: compile kernel
+      - name: Compile kernel
         run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }}
 
-      - name: compile modules
+      - name: Compile modules
         run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }} modules
 
-      - name: compile bzImage
+      - name: Compile bzImage
         run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }} bzImage
+
+      - name: Show Disk Usage of kernel source directory
+        run: du -sh ./${{ env.VERSION }}
+
+      - name: Create Compressed tar file from Kernel Source directory
+        run: |
+          tar -cf ${{ env.VERSION }}-compiled-amd64.tar ./${{ env.VERSION }}
+          gzip ${{ env.VERSION }}-compiled-amd64.tar
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./${{ env.VERSION }}-compiled-amd64.tar.gz
+          asset_name: ${{ env.VERSION }}-compiled-amd64.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "Compiled ${{ env.VERSION }} Kernel Source With Default config AMD64 CPU ARCH"
