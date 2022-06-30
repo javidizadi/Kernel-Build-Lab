@@ -28,13 +28,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: update and upgrade apt packages
-        run: apt update && apt upgrade -y
+        run: sudo apt update && apt upgrade -y
 
       - name: install required packages for building kernel
-        run: apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
+        run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: create a folder
-        run: mkdir /root/lab && cd /root/lab
+        run: mkdir $HOME/lab && cd $HOME/lab
 
       - name: Download ${{ env.VERSION }} tarball
         run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://git.kernel.org/torvalds/t/${{ env.VERSION }}.tar.gz
