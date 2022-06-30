@@ -38,8 +38,8 @@ jobs:
 
       - name: Extract tarball and go to kernel source
         run: |
-        tar zxf ${{ env.VERSION }}.tar.gz
-        cd ./${{ env.VERSION }}
+          tar zxf ${{ env.VERSION }}.tar.gz
+          cd ./${{ env.VERSION }}
 
       - name: print working directory
         run: pwd
