@@ -45,6 +45,9 @@ jobs:
       - name: cd into kernel source
         run: cd ./${{ env.VERSION }}
 
+      - name: print working directory
+        run: pwd
+
       - name: get .config file
         run: curl -s -L -o ./.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
 
