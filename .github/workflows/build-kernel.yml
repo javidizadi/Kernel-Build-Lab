@@ -62,6 +62,6 @@ jobs:
           repo_token: ${{ secrets.TOKEN }}
           file: ./${{ env.VERSION }}-compiled-amd64.tar.gz
           asset_name: ${{ env.VERSION }}-compiled-amd64.tar.gz
-          tag: ${{ github.ref }}
+          tag: ${{ env.VERSION }}
           overwrite: true
           body: "Compiled ${{ env.VERSION }} Kernel Source With Default config AMD64 CPU ARCH"
