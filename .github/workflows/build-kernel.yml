@@ -27,23 +27,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: update and upgrade apt packages
-        run: sudo apt update && sudo apt upgrade -y
+      # - name: update and upgrade apt packages
+      #   run: sudo apt update && sudo apt upgrade -y
 
-      - name: install required packages for building kernel
-        run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
-
-      - name: create a folder
-        run: mkdir $HOME/lab && cd $HOME/lab
+      # - name: install required packages for building kernel
+      #   run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: Download ${{ env.VERSION }} tarball
         run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://git.kernel.org/torvalds/t/${{ env.VERSION }}.tar.gz
 
-      - name: Extract tarball
-        run: tar zxf ${{ env.VERSION }}.tar.gz
-
-      - name: cd into kernel source
-        run: cd ./${{ env.VERSION }}
+      - name: Extract tarball and go to kernel source
+        run: |
+        tar zxf ${{ env.VERSION }}.tar.gz
+        cd ./${{ env.VERSION }}
 
       - name: print working directory
         run: pwd
