@@ -40,7 +40,7 @@ jobs:
         run: curl -s -L -o ./${{ env.VERSION }}/.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
 
       - name: Compile kernel
-        run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }} all
+        run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }}
 
       - name: Compile modules
         run: make ARCH=x86_64 -j`nproc` -C ./${{ env.VERSION }} modules
