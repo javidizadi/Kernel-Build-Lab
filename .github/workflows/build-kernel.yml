@@ -51,10 +51,13 @@ jobs:
       - name: Show Disk Usage of kernel source directory
         run: du -sh ./${{ env.VERSION }}
 
-      - name: Create Compressed tar file from Kernel Source directory
-        run: |
-          tar -cf ${{ env.VERSION }}-compiled-amd64.tar ./${{ env.VERSION }}
-          gzip ${{ env.VERSION }}-compiled-amd64.tar
+      - name: Show Usage of Drivers directory in kernel source
+        run: du -sh ./${{ env.VERSION }}/drivers
+
+      # - name: Create Compressed tar file from Kernel Source directory
+      #   run: |
+      #     tar -cf ${{ env.VERSION }}-compiled-amd64.tar ./${{ env.VERSION }}
+      #     gzip ${{ env.VERSION }}-compiled-amd64.tar
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
