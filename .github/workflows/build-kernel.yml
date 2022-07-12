@@ -31,10 +31,10 @@ jobs:
         run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: Download ${{ env.VERSION }} tarball
-        run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.9.tar.xz
+        run: curl -s -L -o ./${{ env.VERSION }}.tar.xz https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.9.tar.xz
 
       - name: Extract tarball and go to kernel source
-        run: tar zxf ${{ env.VERSION }}.tar.gz
+        run: tar zxf ${{ env.VERSION }}.tar.xz
 
       - name: Get .config file
         run: curl -s -L -o ./${{ env.VERSION }}/.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
