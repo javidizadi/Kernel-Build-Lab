@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: linux-5.19-rc5
+  VERSION: linux-5.18.9
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -27,11 +27,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: install required packages for building kernel
+      - name: Install required packages for building kernel
         run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: Download ${{ env.VERSION }} tarball
-        run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://git.kernel.org/torvalds/t/${{ env.VERSION }}.tar.gz
+        run: curl -s -L -o ./${{ env.VERSION }}.tar.gz https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.9.tar.xz
 
       - name: Extract tarball and go to kernel source
         run: tar zxf ${{ env.VERSION }}.tar.gz
@@ -59,12 +59,12 @@ jobs:
       #     tar -cf ${{ env.VERSION }}-compiled-amd64.tar ./${{ env.VERSION }}
       #     gzip ${{ env.VERSION }}-compiled-amd64.tar
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.TOKEN }}
-          file: ./${{ env.VERSION }}-compiled-amd64.tar.gz
-          asset_name: ${{ env.VERSION }}-compiled-amd64.tar.gz
-          tag: ${{ env.VERSION }}
-          overwrite: true
-          body: "Compiled ${{ env.VERSION }} Kernel Source With Default config AMD64 CPU ARCH"
+      # - name: Upload binaries to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.TOKEN }}
+      #     file: ./${{ env.VERSION }}-compiled-amd64.tar.gz
+      #     asset_name: ${{ env.VERSION }}-compiled-amd64.tar.gz
+      #     tag: ${{ env.VERSION }}
+      #     overwrite: true
+      #     body: "Compiled ${{ env.VERSION }} Kernel Source With Default config AMD64 CPU ARCH"
