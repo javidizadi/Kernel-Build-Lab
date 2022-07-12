@@ -34,7 +34,7 @@ jobs:
         run: curl -s -L -o ./${{ env.VERSION }}.tar.xz https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.9.tar.xz
 
       - name: Extract tarball and go to kernel source
-        run: tar zxf ${{ env.VERSION }}.tar.xz
+        run: tar xf ${{ env.VERSION }}.tar.xz
 
       - name: Get .config file
         run: curl -s -L -o ./${{ env.VERSION }}/.config https://raw.githubusercontent.com/${{ github.repository }}/master/.config
