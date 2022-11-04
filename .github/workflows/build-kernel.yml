@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: linux-5.19-rc7
+  VERSION: linux-5.19-rc8
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -31,7 +31,7 @@ jobs:
         run: sudo apt install git tar fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
 
       - name: Download ${{ env.VERSION }} tarball
-        run: curl -s -L -o ./${{ env.VERSION }}.tar.xz https://git.kernel.org/torvalds/t/linux-5.19-rc7.tar.gz
+        run: curl -s -L -o ./${{ env.VERSION }}.tar.xz https://git.kernel.org/torvalds/t/linux-5.19-rc8.tar.gz
 
       - name: Extract tarball and go to kernel source
         run: tar xf ${{ env.VERSION }}.tar.xz
